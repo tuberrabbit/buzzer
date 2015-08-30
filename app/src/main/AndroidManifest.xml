@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.thoughtworks.btu.buzzer">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,16 +18,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".BootBroadcast">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
         <receiver
-            android:name=".DeviceReceiver"
+            android:name=".Device"
             android:permission="android.permission.Bind_DEVICE_ADMIN">
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin_sample" />
         </receiver>
+
+        <service android:name=".Launcher" />
     </application>
 
 </manifest>
